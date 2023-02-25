@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+input[type="range"]::-moz-range-thumb {
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+button {
+  transition: all 0.1s;
+}
+
+.loading {
+  -webkit-animation: anim 5s ease infinite;
+  -moz-animation: anim 5s ease infinite;
+  animation: anim 5s ease infinite;
+  background-size: 400% 100% !important;
+  background: linear-gradient(90deg, #ffffff, #cfcfcf, #ffffff);
+}
+
+@-webkit-keyframes anim {
+  0%{background-position: 0% 0%}
+  50%{background-position: 200% 0%}
+  100%{background-position: 0% 0%}
+}
+@-moz-keyframes anim {
+  0%{background-position: 0% 0%}
+  50%{background-position: 200% 0%}
+  100%{background-position: 0% 0%}
+}
+@keyframes anim {
+  0%{background-position: 0% 0%}
+  50%{background-position: 200% 0%}
+  100%{background-position: 0% 0%}
+}
+
+.icon-button {
+  border: none;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.primary-button {
+  background-color: #5865F2;
+  color: white;
+}
+
+.fade-in { animation: fade-in-anim 0.25s; }
+
+.fade-out { animation: fade-out-anim 0.25s; }
+
+@keyframes fade-in-anim {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes fade-out-anim {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
