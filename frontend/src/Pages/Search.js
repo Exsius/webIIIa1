@@ -29,7 +29,7 @@ const Search = () => {
             } else {
                 setTimeout(() => {
                     setCurrHero(Math.floor(Math.random() * heroes.length))
-                },600)
+                }, 600)
                 setHeroBrightness(0)
             }
         }, heroBrightness === 1 ? 4000 : 600)
@@ -44,7 +44,7 @@ const Search = () => {
                 <Paper sx={{ height: '206px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
                     <Typography variant='h1'>Movie Browser.</Typography>
                     <div className='flex'>
-                        <input placeholder='Title' value={input} onChange={(e) => {setInput(e.target.value)}} type='text' style={{ backgroundColor: 'transparent', borderColor: theme.primary, borderWidth: '1px' }} className='pl-2 rounded-none rounded-l-full w-72' />
+                        <input placeholder='Title' value={input} onChange={(e) => {setInput(e.target.value)}} onKeyPress={(e) => {e.key === 'Enter' && navigate('/movies')}} type='text' style={{ backgroundColor: 'transparent', borderColor: theme.primary, borderWidth: '1px' }} className='pl-2 rounded-none rounded-l-full w-72' />
                         <Button onClick={() => {navigate(`/movies?search=${encodeURIComponent(input)}`)}} className='rounded-none rounded-r-full'>🔍</Button>
                     </div>
                     <div className='flex'>

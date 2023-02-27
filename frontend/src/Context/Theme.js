@@ -8,6 +8,8 @@ const theme = {
     neutral: '#0F172A',
     rating: '#FFCC00',
     disabled: '#D3D3D3',
+    imdb: '#e6b91e',
+    tmdb: '#03243f',
 }
 
 const ThemeContext = createContext(theme)

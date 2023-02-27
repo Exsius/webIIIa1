@@ -14,7 +14,7 @@ const Card = (props) => {
     const user = useUser()
 
     return (
-        <Paper sx={{ padding: '0px', overflow: 'hidden', width: '292px', display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+        <Paper sx={{ padding: '0px', overflow: 'hidden', width: '292px', display: 'flex', flexDirection: 'column', flexGrow: 1, maxWidth: '372px' }}>
              {image && <div style={{ backgroundimage: `url('${image}')`, backgroundColor: 'cyan'}} className='h-72 p-0'>
 
              </div>}
