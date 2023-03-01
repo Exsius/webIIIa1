@@ -6,7 +6,7 @@ const MovieAPI = () => {
 export const getMovies = async() => {
     const movies = localStorage.getItem('movies')
     if (!movies) {
-        return fetch('/movies.json', {
+        return fetch('https://www.randyconnolly.com/funwebdev/3rd/api/movie/movies-brief.php?limit=200', {
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
@@ -25,7 +25,7 @@ export const getMovies = async() => {
 export const getMovie = async(id) => {
     const movies = localStorage.getItem('movies')
     if (!movies) {
-        return fetch('/movies.json', {
+        return fetch('https://www.randyconnolly.com/funwebdev/3rd/api/movie/movies-brief.php?limit=200', {
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
@@ -45,7 +45,7 @@ export const getHeroes = async(size) => {
     // w92, w154, w185, w342, w500, or w780
     const movies = localStorage.getItem('movies')
     if (!movies) {
-        return fetch('/movies.json', {
+        return fetch('/https://www.randyconnolly.com/funwebdev/3rd/api/movie/movies-brief.php?limit=200', {
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
