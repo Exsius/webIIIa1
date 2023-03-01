@@ -11,7 +11,9 @@ import { useSearchParams, history, Navigate, useNavigate } from "react-router-do
 const Filters = () => {
 
     const user = useUser()
-    const theme = useTheme()
+    const themeContext = useTheme()
+    const { theme } = themeContext
+
     const navigate = useNavigate()
 
     const [searchParams, setSearchParams] = useSearchParams()
@@ -127,7 +129,7 @@ const Filters = () => {
                 <Dropdown className='rounded-none' label='Rating' startIcon='⭐' endIcon='▼'>
                     <Multislider value={ratingRange} range={[0,10]} onBlur={ratingChange} />
                 </Dropdown>
-                <Button className='rounded-none rounded-r-full'>🔍</Button>
+                <Button variant='filled' className='rounded-none rounded-r-full'>🔍</Button>
             </div>
             <Button sx={{ padding: '0px 0px 0px 0px', margin: '0px 16px 0px 0px' }} onClick={clearFilters} variant='text'>Clear Filters</Button>
         </div>
