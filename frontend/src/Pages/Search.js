@@ -8,7 +8,8 @@ import { useNavigate } from "react-router-dom"
 
 const Search = () => {
 
-    const theme = useTheme()
+    const themeContext = useTheme()
+    const { theme } = themeContext
     const navigate = useNavigate()
 
     const [heroes, setHeroes] = useState([])
@@ -45,7 +46,7 @@ const Search = () => {
                     <Typography variant='h1'>Movie Browser.</Typography>
                     <div className='flex'>
                         <input placeholder='Title' value={input} onChange={(e) => {setInput(e.target.value)}} onKeyPress={(e) => {e.key === 'Enter' && navigate('/movies')}} type='text' style={{ backgroundColor: 'transparent', borderColor: theme.primary, borderWidth: '1px' }} className='pl-2 rounded-none rounded-l-full w-72' />
-                        <Button onClick={() => {navigate(`/movies?search=${encodeURIComponent(input)}`)}} className='rounded-none rounded-r-full'>🔍</Button>
+                        <Button variant='filled' onClick={() => {navigate(`/movies?search=${encodeURIComponent(input)}`)}} className='rounded-none rounded-r-full'>🔍</Button>
                     </div>
                     <div className='flex'>
                         <Typography sx={{ paddingTop: '1px' }}>Cant think of a movie? Feel free to browse</Typography>
@@ -55,7 +56,7 @@ const Search = () => {
                 </Paper>
             </div>
             <div style={{ position: 'fixed', left: '0px', bottom: '0px' }}>
-                <Typography variant='h2' sx={{ color: 'white', backgroundColor: 'black', padding: '4px 8px' }}>{heroes[currHero]?.title} image from tmdb.org</Typography>
+                <Typography variant='h2' sx={{ color: theme.base, backgroundColor: 'black', padding: '4px 8px' }}>{heroes[currHero]?.title} image from tmdb.org</Typography>
             </div>
         </div>
     )

@@ -8,7 +8,8 @@ const Popover = (props) => {
 
     const { id } = useParams()
     const navigate = useNavigate()
-    const theme = useTheme()
+    const themeContext = useTheme()
+    const { theme } = themeContext
     const user = useUser()
 
     const { toggleFavorite } = user

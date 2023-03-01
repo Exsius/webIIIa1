@@ -3,7 +3,8 @@ import { useTheme } from '../../Context/Theme'
 
 const Typography = (props) => {
 
-    const theme = useTheme()
+    const themeContext = useTheme()
+    const { theme } = themeContext
 
     const { variant, sx, children } = props
     const [type, setType] = useState('')

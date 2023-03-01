@@ -6,7 +6,8 @@ const Rating = (props) => {
 
     const { disabled, rate, onClick } = props
 
-    const theme = useTheme()
+    const themeContext = useTheme()
+    const { theme } = themeContext
 
     const [inputRating, setInputRating] = useState(0)
 

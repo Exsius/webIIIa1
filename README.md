@@ -7,6 +7,7 @@ Web III assignment 1 project
 
 ## Features💡
 - Dynamically updating query parameters for easy search / filter sharing
+- Change Theme color
 
 ## Development Deployment 🚧
 

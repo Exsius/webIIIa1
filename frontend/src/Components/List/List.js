@@ -13,7 +13,8 @@ import Rating from "../Generic/Rating"
 
 const List = (props) => {
 
-    const theme = useTheme()
+    const themeContext = useTheme()
+    const { theme } = themeContext
     const user = useUser()
     const { movies, genres, setTitle, title, yearRange, ratingRange, fetchMovies, getMovie, addRating, getRating, popover, togglePopover, toggleFavorite } = user
     const { id } = useParams()
@@ -127,7 +128,7 @@ const List = (props) => {
                 <div className="fade-in w-full h-full p-2 rounded-md" style={{ overflow: 'hidden', background: 'linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.84) 24%, rgba(255,255,255,0.92) 25%, rgba(255,255,255,1) 100%)' }}>
                     <div className='flex justify-between'>
                         <Button variant={user.user.favorites.some(fav => fav.id === activeMovie.id) ? 'filled' : 'outlined'} className='rounded-full' onClick={() => {toggleFavorite(activeMovie.id)}}>❤️</Button>
-                        <Button className='rounded-full close-trigger' sx={{ backgroundColor: 'white', color: theme.primary }} onClick={close}>X</Button>
+                        <Button className='rounded-full close-trigger' sx={{ backgroundColor: theme.base, color: theme.primary }} onClick={close}>X</Button>
                     </div>
                     <div className='flex items-start py-12 h-full px-6 gap-3'>
                         {activeMovie.poster ?

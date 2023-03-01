@@ -3,7 +3,8 @@ import { useState, useEffect } from 'react'
 
 const Button = (props) => {
 
-    const theme = useTheme()
+    const themeContext = useTheme()
+    const { theme } = themeContext
 
     const [style, setStyle] = useState({ backgroundColor: theme.primary, color: theme.base, borderColor: theme.primary, borderWidth: '1px', ...props.sx })
     const [endIcon, setEndIcon] = useState(props.endIcon)

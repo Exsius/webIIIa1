@@ -10,17 +10,32 @@ import Typography from '../Generic/Typography.js'
 
 const Header = (props) => {
 
-    const theme = useTheme()
+    const themeContext = useTheme()
+    const { theme, setTheme } = themeContext
     const navigate = useNavigate()
 
     const user = useUser()
     const { setTitle } = user
     const [popover, togglePopover] = useState(false)
 
+    const colors = [
+        '#6699CC',
+        '#B75D69',
+        '#839791',
+        '#06BCC1',
+        '#323031',
+    ]
+
     return (
         <>
             <div style={{ backgroundColor: theme.primary, position: 'sticky', top: '0px', left: '0px' }} className='border-gray-200 flex justify-between items-center px-8 h-16'>
-                <Button onClick={() => {setTitle(''); navigate('/')}} sx={{ fontSize: '2em' }}>Movie Browser</Button>
+                <Button variant='text' onClick={() => {setTitle(''); navigate('/')}} sx={{ fontSize: '2em', color: theme.base }}>Movie Browser</Button>
+                <div className='grow' />
+                <div className='flex' style={{ height: '100%', paddingRight: '48px' }}>
+                    {colors.map(color => (
+                        <div onClick={() => {setTheme({ ...theme, primary: color })}} className='rounded-full' style={{ borderWidth: '2px', borderColor: theme.base, cursor: 'pointer', margin: '16px', backgroundColor: color, height: '32px', width: '32px' }} />
+                    ))}
+                </div>
                 <button className='rounded-full bg-blue-50 h-8'>
                     <ProfileIcon onClick={() => {navigate('/about'); togglePopover(!popover)}} />
                 </button>

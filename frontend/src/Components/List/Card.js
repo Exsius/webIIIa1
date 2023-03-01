@@ -10,7 +10,8 @@ const Card = (props) => {
 
     const { image, title, rating, popularity, caption, subtitle, summary, children, onFavorite, onView, id } = props
 
-    const theme = useTheme()
+    const themeContext = useTheme()
+    const { theme } = themeContext
     const user = useUser()
 
     return (
@@ -46,7 +47,7 @@ const Card = (props) => {
                 <div className='flex justify-between'>
                     <div className='flex py-3'>
                         <Button variant={user.user.favorites.some(fav => fav.id === id) ? 'filled' : 'outlined'} className='rounded-none rounded-l-full' onClick={onFavorite}>❤️</Button>
-                        <Button className='rounded-none rounded-r-full' onClick={onView}>View</Button>
+                        <Button variant='filled' className='rounded-none rounded-r-full' onClick={onView}>View</Button>
                     </div>
                     <div className='flex flex-col'>
                         {rating && <div>

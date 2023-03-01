@@ -7,7 +7,8 @@ import Typography from "../Generic/Typography"
 
 const Dropdown = (props) => {
 
-    const theme = useTheme()
+    const themeContext = useTheme()
+    const { theme } = themeContext
 
     const [visible, setVisible] = useState(false)
     const [buttonPos, setButtonPos] = useState([0,0])
@@ -31,7 +32,7 @@ const Dropdown = (props) => {
                     <div style={{position: 'absolute', left: `${buttonPos[0]}px`, top: `${buttonPos[1]}px` }} className="fade-in w-64 p-2 mt-1 bg-white border border-gray-200 rounded-md drop-shadow-2xl">
                         <div className='flex flex-row justify-between content-center rounded-t-lg' style={{ boxShadow: 'rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px', margin: '-8px -8px 8px -8px', padding: '8px' }}>
                             <Typography variant='h2'>{props.label}</Typography>
-                            <Button className='close-trigger' onClick={close} variant='text' sx={{ backgroundColor: 'white', color: theme.primary }}>X</Button>
+                            <Button className='close-trigger' onClick={close} variant='text' sx={{ backgroundColor: theme.base, color: theme.primary }}>X</Button>
                         </div>
                         {props.children}
                     </div>
