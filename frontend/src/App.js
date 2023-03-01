@@ -17,6 +17,7 @@ const App = () => (
             <Route path='/' element={ <Search /> } />
             <Route path='/movies' element={ <Dashboard /> } />
             <Route path='/movie/:id' element={ <Dashboard /> } />
+            <Route path='/about' element={ <Dashboard /> } />
             <Route path='*' element={ <Navigate to='/' />  } />
           </Routes>
         </Header>

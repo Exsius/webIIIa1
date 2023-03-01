@@ -22,6 +22,7 @@ const UserProvider = (props) => {
     const [genres, setGenres] = useState([])
     const [yearRange, setYearRange] = useState([1928,2023])
     const [ratingRange, setRatingRange] = useState([0,10])
+    const [popover, setPopover] = useState(false)
 
     const fetchMovies = () => {
         getMovies().then(res => {
@@ -38,7 +39,7 @@ const UserProvider = (props) => {
     const addFavorite = (id) => {
         if (!user.favorites.some(fav => fav.id === id)) {
             const movie = movies.find(movie => movie.id === id)
-            setUser({...user, favorites: [...user.favorites, { id: id, title: movie.title, tagline: movie.tagline }]})
+            setUser({...user, favorites: [...user.favorites, { id: id, poster: `https://image.tmdb.org/t/p/w92${movie.poster}`, title: movie.title, tagline: movie.tagline }]})
         }
     }
 
@@ -67,7 +68,7 @@ const UserProvider = (props) => {
             setUser({...user, favorites: user.favorites.filter(fav => fav.id !== id)})
         } else {
             const movie = movies.find(movie => movie.id === id)
-            setUser({...user, favorites: [...user.favorites, { id: id, title: movie.title, tagline: movie.tagline }]})
+            setUser({...user, favorites: [...user.favorites, { id: id, poster: `https://image.tmdb.org/t/p/w92${movie.poster}`, title: movie.title, tagline: movie.tagline }]})
         }
     }
 
@@ -87,6 +88,10 @@ const UserProvider = (props) => {
         setGenres([])
     }
 
+    const togglePopover = (cond) => {
+        cond ? setPopover(cond) : setPopover(!popover)
+    }
+
     const value = {
         user,
         movies,
@@ -97,6 +102,8 @@ const UserProvider = (props) => {
         ratingRange,
         setRatingRange,
         setTitle,
+        popover,
+        togglePopover,
         addRating,
         getRating,
         addFavorite,

@@ -6,16 +6,17 @@ import Dropdown from "./Dropdown"
 import { useUser } from "../../Context/User"
 import Typography from "../Generic/Typography"
 import { useState, useEffect } from "react"
-import { useSearchParams, history } from "react-router-dom"
+import { useSearchParams, history, Navigate, useNavigate } from "react-router-dom"
 
 const Filters = () => {
 
     const user = useUser()
     const theme = useTheme()
+    const navigate = useNavigate()
 
     const [searchParams, setSearchParams] = useSearchParams()
 
-    const { removeFavorite, toggleGenre, clearGenres, genres, yearRange, ratingRange, setTitle, setYearRange, setRatingRange } = user
+    const { removeFavorite, toggleGenre, clearGenres, genres, yearRange, ratingRange, setTitle, setYearRange, setRatingRange, popover, togglePopover } = user
 
     const genresArr = [
         'Drama',
@@ -91,9 +92,9 @@ const Filters = () => {
                 <div className='flex flex-col max-h-96 overflow-scroll'>
                     {user.user.favorites.length > 0 ? user.user.favorites.map((favorite, index) => (
                         <>
-                            <div key={favorite.id} className='flex grow items-center gap-3'>
-                                <div><div style={{ backgroundColor: 'cyan', width: '32px', height: '32px' }}></div></div>
-                                <div className='grow'>
+                            <div key={favorite.id} className='flex grow gap-3'>
+                                <div><div onClick={() => {navigate(`/movie/${favorite.id}`); togglePopover()}} style={{ cursor: 'pointer', backgroundImage: `url('${favorite.poster}')`, backgroundSize: 'contain', backgroundRepeat: 'no-repeat', width: '32px', height: '72px' }}></div></div>
+                                <div className='grow' onClick={() => {navigate(`/movie/${favorite.id}`); togglePopover()}} style={{ cursor: 'pointer' }}>
                                     <Typography sx={{ fontSize: '0.8em' }} variant='h3'>{favorite.title}</Typography>
                                     <Typography sx={{ fontSize: '0.7em' }}>{favorite.tagline.length > 100 ? `${favorite.tagline.substring(0, 100)}...` : favorite.tagline}</Typography>
                                 </div>
