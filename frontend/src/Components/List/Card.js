@@ -15,9 +15,7 @@ const Card = (props) => {
 
     return (
         <Paper sx={{ padding: '0px', overflow: 'hidden', width: '292px', display: 'flex', flexDirection: 'column', flexGrow: 1, maxWidth: '372px' }}>
-             {image && <div style={{ backgroundimage: `url('${image}')`, backgroundColor: 'cyan'}} className='h-72 p-0'>
-
-             </div>}
+             {image && <div style={{ backgroundImage: `url('${image}')`, backgroundSize: 'cover', backgroundPosition: 'center' }} className='h-72 p-0' />}
              <div className='p-4 flex grow flex-col'>
                 <div className='flex justify-between w-full items-end'>
                     <div className='grow'>
@@ -56,7 +54,7 @@ const Card = (props) => {
                         </div>}
                         {popularity && <div>
                             <Typography sx={{ color: theme.primary }} variant='h3'>
-                                🍿 #{popularity}
+                                🍿 {'>'}{popularity}
                             </Typography>
                         </div>}
                     </div>

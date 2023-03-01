@@ -15,7 +15,7 @@ const Filters = () => {
 
     const [searchParams, setSearchParams] = useSearchParams()
 
-    const { removeFavorite, toggleGenre, genres, setTitle } = user
+    const { removeFavorite, toggleGenre, clearGenres, genres, yearRange, ratingRange, setTitle, setYearRange, setRatingRange } = user
 
     const genresArr = [
         'Drama',
@@ -40,7 +40,7 @@ const Filters = () => {
     const genreAdd = (genre) => {
         const genreParams = searchParams.get('genres')
         toggleGenre(genre)
-        setSearchParams({ 'search' : searchParams.get('search') ? searchParams.get('search') : '', 'genres' : (genreParams ? genreParams + `/${genre}` : `/${genre}`) })
+        setSearchParams({ 'search' : searchParams.get('search') ? searchParams.get('search') : '', 'genres' : (genreParams ? genreParams + `/${genre}` : `/${genre}`), 'year' : searchParams.get('year') ? searchParams.get('year') : '', 'rating' : searchParams.get('rating') ? searchParams.get('rating') : '' })
     }
 
     const genreRemove = (genre) => {
@@ -49,16 +49,38 @@ const Filters = () => {
         toggleGenre(genre)
         setSearchParams({ 'search' : searchParams.get('search') ? searchParams.get('search') : '', 'genres' : genreParams.replace(reg, '') })
     }
+
+    const yearChange = (year) => {
+        setYearRange(year)
+        setSearchParams({ 'search' : searchParams.get('search') ? searchParams.get('search') : '', 'genres' : searchParams.get('genres') ? searchParams.get('genres') : '', 'year' : `${year[0]}-${year[1]}`, 'rating' : searchParams.get('rating') ? searchParams.get('rating') : '' })
+    }
+
+    const ratingChange = (rating) => {
+        setRatingRange(rating)
+        setSearchParams({ 'search' : searchParams.get('search') ? searchParams.get('search') : '', 'genres' : searchParams.get('genres') ? searchParams.get('genres') : '', 'year' : searchParams.get('year') ? searchParams.get('year') : '', 'rating' : `${rating[0]}-${rating[1]}` })
+    }
+
+    const clearFilters = () => {
+        setYearRange()
+        setRatingRange()
+        setInput('')
+        clearGenres()
+        setSearchParams('')
+    }
     
     useEffect(() => {
         const genreParams = searchParams.get('genres')
+        const yearParams = searchParams.get('year')
+        const ratingParams = searchParams.get('rating')
         toggleGenre(genreParams && genreParams.split('/'))
+        setYearRange(yearParams && yearParams.split('-'))
+        setRatingRange(ratingParams && ratingParams.split('-'))
     },[])
 
     useEffect(() => {
         if (input !== null) {
             setTitle(input)
-            setSearchParams({ 'search' : input, 'genres' : searchParams.get('genres') ? searchParams.get('genres') : ''})
+            setSearchParams({ 'search' : input, 'genres' : searchParams.get('genres') ? searchParams.get('genres') : '', 'year' : searchParams.get('year') ? searchParams.get('year') : '', 'rating' : searchParams.get('rating') ? searchParams.get('rating') : '' })
         }
     },[input])
 
@@ -69,7 +91,7 @@ const Filters = () => {
                 <div className='flex flex-col max-h-96 overflow-scroll'>
                     {user.user.favorites.length > 0 ? user.user.favorites.map((favorite, index) => (
                         <>
-                            <div className='flex grow items-center gap-3'>
+                            <div key={favorite.id} className='flex grow items-center gap-3'>
                                 <div><div style={{ backgroundColor: 'cyan', width: '32px', height: '32px' }}></div></div>
                                 <div className='grow'>
                                     <Typography sx={{ fontSize: '0.8em' }} variant='h3'>{favorite.title}</Typography>
@@ -86,24 +108,27 @@ const Filters = () => {
                 </div>
             </Dropdown>
         </div>
-        <div className='flex flex-row'>
-            <input placeholder='Title' value={input} onChange={(e) => {setInput(e.target.value)}} type='text' style={{ backgroundColor: 'transparent', borderColor: theme.primary, borderWidth: '1px' }} className='pl-2 rounded-none rounded-l-full w-72' />
-            <Dropdown className='rounded-none' label='Genre' startIcon='📚' endIcon='▼'>
-                <div className='flex flex-col'>
-                    {genresArr.map((genre) => (
-                        <Button variant={genres.includes(genre) ? 'filled' : 'outlined'} sx={{ margin: '2px 0px' }} className='rounded-full' onClick={() => {!genres.includes(genre) ? genreAdd(genre) : genreRemove(genre)}}>
-                            {genre}
-                        </Button>
-                    ))}
-                </div>
-            </Dropdown>
-            <Dropdown className='rounded-none' label='Year' startIcon='📅' endIcon='▼'>
-                <Multislider />
-            </Dropdown>
-            <Dropdown className='rounded-none' label='Rating' startIcon='⭐' endIcon='▼'>
-                <Multislider />
-            </Dropdown>
-            <Button className='rounded-none rounded-r-full'>🔍</Button>
+        <div className='flex flex-col items-end'>
+            <div className='flex flex-row'>
+                <input placeholder='Title' value={input} onChange={(e) => {setInput(e.target.value)}} type='text' style={{ backgroundColor: 'transparent', borderColor: theme.primary, borderWidth: '1px' }} className='pl-2 rounded-none rounded-l-full w-72' />
+                <Dropdown className='rounded-none' label='Genre' startIcon='📚' endIcon='▼'>
+                    <div className='flex flex-col'>
+                        {genresArr.map((genre) => (
+                            <Button key={genre} variant={genres.includes(genre) ? 'filled' : 'outlined'} sx={{ margin: '2px 0px' }} className='rounded-full' onClick={() => {!genres.includes(genre) ? genreAdd(genre) : genreRemove(genre)}}>
+                                {genre}
+                            </Button>
+                        ))}
+                    </div>
+                </Dropdown>
+                <Dropdown className='rounded-none' label='Year' startIcon='📅' endIcon='▼'>
+                    <Multislider value={yearRange} range={[1928,2023]} onBlur={yearChange} />
+                </Dropdown>
+                <Dropdown className='rounded-none' label='Rating' startIcon='⭐' endIcon='▼'>
+                    <Multislider value={ratingRange} range={[0,10]} onBlur={ratingChange} />
+                </Dropdown>
+                <Button className='rounded-none rounded-r-full'>🔍</Button>
+            </div>
+            <Button sx={{ padding: '0px 0px 0px 0px', margin: '0px 16px 0px 0px' }} onClick={clearFilters} variant='text'>Clear Filters</Button>
         </div>
     </div>
     )

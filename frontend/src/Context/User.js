@@ -20,6 +20,8 @@ const UserProvider = (props) => {
     const [movies, setMovies] = useState([])
     const [title, setTitle] = useState('')
     const [genres, setGenres] = useState([])
+    const [yearRange, setYearRange] = useState([1928,2023])
+    const [ratingRange, setRatingRange] = useState([0,10])
 
     const fetchMovies = () => {
         getMovies().then(res => {
@@ -81,11 +83,19 @@ const UserProvider = (props) => {
         }
     }
 
+    const clearGenres = () => {
+        setGenres([])
+    }
+
     const value = {
         user,
         movies,
         title,
         genres,
+        yearRange,
+        setYearRange,
+        ratingRange,
+        setRatingRange,
         setTitle,
         addRating,
         getRating,
@@ -95,6 +105,7 @@ const UserProvider = (props) => {
         fetchMovies,
         getMovie,
         toggleGenre,
+        clearGenres,
     }
 
     return (
